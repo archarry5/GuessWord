@@ -1,20 +1,22 @@
+import java.util.*;
+import java.io.*;
 public class Scrabble {
 	String word;
-	int level;
-	Arraylist<String> wordList;	
+	int wordSize;
+	ArrayList<String> wordList;	
 
-	public Scrabble(int level) {
-		this.level = level;
+	public Scrabble(int wordSize) {
+		this.wordSize = wordSize;
 		wordList = new ArrayList<String>();
 	}
 	
 	public void createWordList(int size) {
-		BufferedReader reader = null;
+		Scanner reader = null;
 		try {
-			reader = new BufferedReader(new FileReader("/home/administrator/GitRepo/GuessWord/sowpods"));
+			reader = new Scanner(new File("/home/administrator/GitRepo/GuessWord/sowpods"));
 			String word = "";
-			while ((word = reader.readLine()) != null) {
-				if (word.length() == level) {
+			while ((word = reader.nextLine()) != null) {
+				if (word.length() == wordSize) {
 					wordList.add(word);
 				}			
 			} 
@@ -23,7 +25,14 @@ public class Scrabble {
 		} finally {
 			try {
 				reader.close();			
-			}
+			} catch (Exception e) {}
 		}
+		for (String s : wordList) 
+			System.out.println(s);
+	}
+
+	public static void main(String[] args) {
+		Scrabble scrab = new Scrabble(4);
+		scrab.createWordList(4);	
 	}
 }
