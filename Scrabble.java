@@ -9,15 +9,21 @@ public class Scrabble {
 	}
 	
 	public void createWordList(int size) {
-		BufferedReader buffReader = null;
+		BufferedReader reader = null;
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader("/home/administrator/GitRepo/GuessWord/sowpods"));
+			reader = new BufferedReader(new FileReader("/home/administrator/GitRepo/GuessWord/sowpods"));
 			String word = "";
 			while ((word = reader.readLine()) != null) {
 				if (word.length() == level) {
 					wordList.add(word);
 				}			
 			} 
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				reader.close();			
+			}
 		}
 	}
 }
