@@ -1,33 +1,31 @@
 public class Evaluate {
-	String DecidedWord;
-	public Evaluate(String DecidedWord) {
-		this.DecidedWord = DecidedWord;
+	String word;
+	public Evaluate(String word) {
+		this.word = word;
 	}
-	public int evaluateGuess(String GuessedWord) {
+	public int evaluateGuess(String guess) {
 		int count = 0;
-		String GuessWord = removeDuplicate(GuessedWord);
-		for(int i = 0;i < GuessedWord.length(); i++) {
-			char c = GuessWord.charAt(i);
+		guess = removeDuplicate(guess);
+		for(int i = 0;i < guess.length(); i++) {
+			char c = guess.charAt(i);
 			
-			if (DecidedWord.contains(GuessWord.charAt(i) + "" )) {
+			if (word.contains(guess.charAt(i) + "" )) {
 				count++;
 			}
 		}
 		return count;
 	}
 
-	public String removeDuplicate(String GuessedWord){
-	    char[] process = GuessedWord.toCharArray();
-	    for(int i = 0; i < GuessedWord.length(); i++){
-	    	for(int j = i+1 ; j < GuessedWord.length(); j++) {
-	    		if(process[i] == process[j]) {
-	    			process[j] = ' ';
+	public String removeDuplicate(String word){
+	    char[] processed = word.toCharArray();
+	    for(int i = 0; i < word.length(); i++){
+	    	for(int j = i+1 ; j < word.length(); j++) {
+	    		if(processed[i] == processed[j]) {
+	    			processed[j] = ' ';
 	    		}
 	    	}
 	    } 
-	    String newGuess = new String(process);
-	    return newGuess;
-
+	    return new String(processed);
 	}
 
 	public static void main(String args[]) {
