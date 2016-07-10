@@ -9,6 +9,7 @@ public class Scrabble {
 		this.wordSize = wordSize;
 		wordList = new ArrayList<String>();
 		createWordList(wordSize);
+		updateList("vwxyz", 0);
 	}
 	
 	public void createWordList(int size) {
@@ -39,6 +40,15 @@ public class Scrabble {
 	public void updateList(String guess, int count) {
 		if (count == 0) {
 			//remove all words with chars in string guess
+			for (char c : guess.toCharArray()) {
+				ArrayList<String> copyOfList = ()wordList.clone();
+				for (String word : copyOfList) {
+					if (word.contains(c + ""))
+						wordList.remove(word);
+				}
+			}
+			for (String word : wordList) 
+				System.out.println(word);
 		} else if (count == wordSize) {
 			// remove all words who donot hv even 1 of the above chars
 		}
