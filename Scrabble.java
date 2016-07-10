@@ -24,9 +24,7 @@ public class Scrabble {
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
-			try {
-				reader.close();			
-			} catch (Exception e) {}
+			reader.close();			
 		}
 		for (String s : wordList) 
 			System.out.println(s);
@@ -36,6 +34,17 @@ public class Scrabble {
 		Random r = new Random();
 		int index = r.nextInt(wordList.size());
 		return wordList.get(index);
+	}
+
+	public void updateList(String guess, int count) {
+		if (count == 0) {
+			//remove all words with chars in string guess
+		} else if (count == wordSize) {
+			// remove all words who donot hv even 1 of the above chars
+		}
+		else {
+			//remove all words who donot hv any of these characters
+		}
 	}
 
 	public static void main(String[] args) {
