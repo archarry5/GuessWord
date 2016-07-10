@@ -8,6 +8,7 @@ public class Scrabble {
 	public Scrabble(int wordSize) {
 		this.wordSize = wordSize;
 		wordList = new ArrayList<String>();
+		createWordList(wordSize);
 	}
 	
 	public void createWordList(int size) {
@@ -31,8 +32,14 @@ public class Scrabble {
 			System.out.println(s);
 	}
 
+	public String guessWord() {
+		Random r = new Random();
+		int index = r.nextInt(wordList.size());
+		return wordList.get(index);
+	}
+
 	public static void main(String[] args) {
 		Scrabble scrab = new Scrabble(4);
-		scrab.createWordList(4);	
+		System.out.println(scrab.guessWord());	
 	}
 }
