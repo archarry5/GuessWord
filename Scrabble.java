@@ -3,13 +3,14 @@ import java.io.*;
 public class Scrabble {
 	String word;
 	int wordSize;
+	boolean gameWon;
 	ArrayList<String> wordList;	
 
 	public Scrabble(int wordSize) {
 		this.wordSize = wordSize;
+		gameWon = false;
 		wordList = new ArrayList<String>();
 		createWordList(wordSize);
-		updateList("vwxyz", 0);
 	}
 	
 	public void createWordList(int size) {
@@ -17,18 +18,24 @@ public class Scrabble {
 		try {
 			reader = new Scanner(new File("/home/administrator/GitRepo/GuessWord/sowpods"));
 			String word = "";
-			while ((word = reader.nextLine()) != null) {
+			while (reader.hasNext()) {
+				word = reader.next();
 				if (word.length() == wordSize) {
 					wordList.add(word);
 				}			
 			} 
+			
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
 			reader.close();			
 		}
-		for (String s : wordList) 
-			System.out.println(s);
+	}
+
+	public void chooseWord() {
+		Random r = new Random();
+		int index = r.nextInt(wordList.size());
+		word = wordList.get(index);
 	}
 
 	public String guessWord() {
@@ -46,6 +53,10 @@ public class Scrabble {
 			if (word.contains(guess.charAt(i) + "" )) {
 				count++;
 			}
+		}
+		if (count == 5 && guess == word) {
+			gameWon = true;
+			return -1;
 		}
 		return count;
 	}
@@ -74,15 +85,15 @@ public class Scrabble {
 				}
 				wordList.removeAll(Arrays.asList(""));
 			} 
-			for (String word : wordList) 
-				System.out.println(word);
 		} else if (count == wordSize) {
 			// remove all words who donot hv even 1 of the above chars
 			char[] ascendingGuess = guess.toCharArray();
+			System.out.println(guess);
 			Arrays.sort(ascendingGuess);
 			for (int i = 0; i < wordList.size(); i++) {
-				char[] wordArr = word.toCharArray();
-				Arrays.sort(wordArr);			
+				char[] wordArr = wordList.get(i).toCharArray();
+				Arrays.sort(wordArr);	
+				//System.out.println(String.valueOf(wordArr));		
 				if (!Arrays.equals(wordArr, ascendingGuess))
 					wordList.set(i,"");
 			}
@@ -105,8 +116,8 @@ public class Scrabble {
 		}
 	}
 
-	public static void main(String[] args) {
+	/* public static void main(String[] args) {
 		Scrabble scrab = new Scrabble(4);
-		System.out.println(scrab.guessWord());	
-	}
+		//System.out.println(scrab.guessWord());	
+	} */
 }
